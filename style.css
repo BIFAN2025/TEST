@@ -1,0 +1,406 @@
+/*
+  Yuri’s Dashboard styling
+  The aesthetic is inspired by glass and crystal, using translucent panels,
+  blurred backgrounds and light colour accents. Adjust variables below to
+  tweak the palette.
+*/
+
+:root {
+  /* Primary colours for the glassy theme */
+  /* Slightly more opaque glass effect for stronger translucent feel */
+  /* Adjust transparency to enhance the glass effect */
+  --glass-background: rgba(255, 255, 255, 0.18);
+  --glass-border: rgba(255, 255, 255, 0.5);
+  --accent-colour: rgba(173, 216, 230, 0.4); /* light blue accent */
+  --text-colour: #ffffff;
+}
+
+/* Base layout and global resets */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  /* Use a rounded typeface for a softer, iOS‑like appearance */
+  font-family: 'Nunito', sans-serif;
+  color: var(--text-colour);
+  /* Gradient background to simulate light through glass; lighter pastel tones */
+  background: linear-gradient(135deg, #d0e6ff, #e9e1ff);
+  min-height: 100vh;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  z-index: 100;
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid var(--glass-border);
+}
+
+h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: normal;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+}
+
+nav li {
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  transition: background 0.3s;
+}
+
+nav li span {
+  font-size: 0.9rem;
+}
+
+nav li.active,
+nav li:hover {
+  background: var(--glass-border);
+}
+
+nav li i {
+  font-size: 1.1rem;
+}
+
+/* Style the anchor inside nav items so icons and text align nicely */
+nav li a {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--text-colour);
+  text-decoration: none;
+}
+
+main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  padding-top: 6rem; /* space for fixed header */
+  padding-bottom: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+section {
+  /* grid items; remove margin since grid gap handles spacing */
+  display: block;
+  margin: 0;
+}
+
+section h2 {
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+  font-weight: 500;
+}
+
+/* Glass card container used in multiple sections */
+.glass-card {
+  background: var(--glass-background);
+  border: 1px solid var(--glass-border);
+  border-radius: 15px;
+  padding: 1rem;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+  /* Subtle inner border for a more polished glass appearance */
+  box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.3), 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+/* Animated shine effect moving across the glass cards */
+.glass-card::after {
+  content: '';
+  position: absolute;
+  top: -150%;
+  left: -150%;
+  width: 300%;
+  height: 300%;
+  background: linear-gradient(130deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0) 60%);
+  transform: rotate(45deg);
+  animation: shine 8s linear infinite;
+}
+
+/* Static light reflection across the top of the glass cards */
+.glass-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 40%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.05));
+  pointer-events: none;
+}
+
+@keyframes shine {
+  from {
+    transform: translate(-100%, -100%) rotate(45deg);
+  }
+  to {
+    transform: translate(100%, 100%) rotate(45deg);
+  }
+}
+
+/* Grid adjustments for wide widgets like calendar and music */
+section.wide {
+  grid-column: span 2;
+}
+
+@media (max-width: 768px) {
+  section.wide {
+    grid-column: span 1;
+  }
+}
+
+/* Weather section styling */
+#weather-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+#weather-info img {
+  width: 80px;
+  height: 80px;
+}
+
+/* Calendar section event form */
+#event-form {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+#event-form input,
+#event-form button {
+  padding: 0.5rem;
+  border: none;
+  border-radius: 5px;
+  background: var(--glass-background);
+  color: var(--text-colour);
+  backdrop-filter: blur(5px);
+}
+
+#event-form button {
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+#event-form button:hover {
+  background: var(--glass-border);
+}
+
+/* To‑Do list styles */
+#todo-form {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+#todo-form input {
+  flex: 1;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 5px;
+  background: var(--glass-background);
+  color: var(--text-colour);
+}
+
+#todo-form button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  background: var(--glass-border);
+  color: var(--text-colour);
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+#todo-form button:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+#todo-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#todo-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.4rem 0.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+#todo-list li.completed span {
+  text-decoration: line-through;
+  opacity: 0.7;
+}
+
+#todo-list li button {
+  background: none;
+  border: none;
+  color: var(--text-colour);
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+/* Notes styles */
+#add-note-btn {
+  margin-bottom: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  background: var(--glass-border);
+  color: var(--text-colour);
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+#add-note-btn:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+#notes-container .note {
+  background: var(--glass-background);
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  border-radius: 10px;
+  position: relative;
+  border: 1px solid var(--glass-border);
+}
+
+#notes-container .note textarea {
+  width: 100%;
+  height: 100px;
+  background: transparent;
+  color: var(--text-colour);
+  border: none;
+  resize: vertical;
+  outline: none;
+  font-family: inherit;
+}
+
+#notes-container .note .delete-note {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: none;
+  border: none;
+  color: var(--text-colour);
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+/* Chat section */
+.chat-messages {
+  height: 300px;
+  overflow-y: auto;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.chat-messages .message {
+  background: var(--glass-background);
+  border: 1px solid var(--glass-border);
+  border-radius: 10px;
+  padding: 0.3rem 0.5rem;
+}
+
+#chat-form {
+  display: flex;
+  gap: 0.5rem;
+}
+
+#chat-form input {
+  flex: 1;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 5px;
+  background: var(--glass-background);
+  color: var(--text-colour);
+}
+
+#chat-form button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  background: var(--glass-border);
+  color: var(--text-colour);
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+#chat-form button:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* Pomodoro timer buttons */
+#pomodoro-controls button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  background: var(--glass-border);
+  color: var(--text-colour);
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+#pomodoro-controls button:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* Responsive design tweaks */
+@media (max-width: 768px) {
+  nav ul {
+    gap: 0.5rem;
+  }
+  header {
+    padding: 0.5rem 1rem;
+  }
+  h1 {
+    font-size: 1.2rem;
+  }
+  nav li span {
+    display: none; /* hide text labels on smaller screens to save space */
+  }
+  main {
+    padding-top: 4rem;
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Ensure text in all form elements is white for better contrast on dark backgrounds */
+input,
+textarea,
+button {
+  color: var(--text-colour);
+}
+
+/* Make placeholder text visible on dark inputs */
+::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
